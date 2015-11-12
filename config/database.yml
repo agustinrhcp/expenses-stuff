@@ -1,0 +1,26 @@
+production:
+  adapter:      postgresql
+  database:     expenses_stuff_production
+  username:     agustin
+  password:
+  host:         localhost
+  pool:         20
+  wait_timeout: 10
+
+development:
+  adapter:      postgresql
+  database:     expenses_stuff_development
+  username:     agustin
+  password:
+  host:         localhost
+  pool:         20
+  wait_timeout: 10
+
+test:
+  adapter:      postgresql
+  database:     expenses_stuff_test
+  username:     agustin
+  password:
+  host:         localhost
+  pool:         20
+  wait_timeout: 10
