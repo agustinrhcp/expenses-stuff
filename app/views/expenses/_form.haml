@@ -1,0 +1,11 @@
+= form_tag expenses_path do
+	%div
+		= label_tag 'expense[description]', 'description'
+		= text_field_tag 'expense[description]', params[:description]
+	%div
+		= label_tag 'expense[amount]', 'amount'
+		= text_field_tag 'expense[amount]', params[:amount]
+
+	%div
+		= submit_tag 'Add'
+		= link_to 'cancel', '#', data: { toggle_add_expense: true }

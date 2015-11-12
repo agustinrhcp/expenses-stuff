@@ -1,0 +1,10 @@
+- @expenses.each do |expense|
+	%div
+		= expense.description
+		= expense.amount
+
+%div{ data: { add_expense: true } }
+	= link_to 'Add Expense', '#', remote: true, data: { toggle_add_expense: true }
+
+%div.is-hidden{ data: { expense_form: true } }
+	= render 'form'
