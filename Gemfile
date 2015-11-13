@@ -14,5 +14,6 @@ gem 'turbolinks'
 gem 'pg'
 
 group :development, :test do
-  gem 'rspec', '~> 3.0'
+  gem 'factory_girl'
+  gem 'rspec-rails', '~> 3.2.0'
 end
