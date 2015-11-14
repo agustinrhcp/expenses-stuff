@@ -14,4 +14,10 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   config.infer_spec_type_from_file_location!
+
+  config.use_transactional_fixtures = true
+end
+
+def login_user(user = nil)
+  FactoryGirl.create(:user).tap { |user| session[:user_id] = user.id }
 end

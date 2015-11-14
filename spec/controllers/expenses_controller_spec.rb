@@ -3,8 +3,9 @@ require 'spec_helper'
 require 'factories/expense'
 
 describe ExpensesController do
-	describe 'index' do
+	before { login_user }
 
+	describe 'index' do
 		let(:expense) { FactoryGirl.create(:expense) }
 
 		it 'assigns the expenses to expenses' do
@@ -21,7 +22,7 @@ describe ExpensesController do
 	end
 
 	describe 'create' do
-		let(:expense_attrs) {{ amount: rand(1_000), description: 'Something' }}
+		let(:expense_attrs) { { amount: rand(1_000), description: 'Something' } }
 
 		it 'creates a new expense' do
 			expect {
