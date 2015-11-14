@@ -1,0 +1,10 @@
+= form_tag login_path do
+	%div
+		= label_tag 'auth[email]', 'email'
+		= text_field_tag 'auth[email]', params[:email]
+	%div
+		= label_tag 'auth[password]', 'password'
+		= password_field_tag 'auth[password]'
+
+	%div
+		= submit_tag 'Login'
