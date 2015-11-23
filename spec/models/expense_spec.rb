@@ -1,35 +1,35 @@
 require 'spec_helper'
 
 describe Expense do
-	describe 'validations' do
-		context 'when the amount is not a number' do
-			let(:amount) { 'two' }
+  describe 'validations' do
+    context 'when the amount is not a number' do
+      let(:amount) { 'two' }
 
-			it 'fails' do
+      it 'fails' do
         expect {
           FactoryGirl.create(:expense, amount: amount)
-        }.to raise_error(ActiveRecord::RecordInvalid, /InvalidAmount/)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
-		end
+    end
 
-		context 'when the amount is less than zero' do
-			let(:amount) { -100 }
+    context 'when the amount is less than zero' do
+      let(:amount) { -100 }
 
-			it 'fails' do
+      it 'fails' do
         expect {
           FactoryGirl.create(:expense, amount: amount)
-        }.to raise_error(ActiveRecord::RecordInvalid, /InvalidAmount/)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
-		end
+    end
 
-		context 'when the description is blank' do
-			let(:description) { nil }
+    context 'when the description is blank' do
+      let(:description) { nil }
 
-			it 'fails' do
+      it 'fails' do
         expect {
           FactoryGirl.create(:expense, description: description)
-        }.to raise_error(ActiveRecord::RecordInvalid, /InvalidDescription/)
+        }.to raise_error(ActiveRecord::RecordInvalid)
       end
-		end
-	end
+    end
+  end
 end

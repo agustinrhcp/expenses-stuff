@@ -1,0 +1,8 @@
+- if flash[:error]
+  - if flash[:error].is_a?(Array)
+    %ul
+      - flash[:error].each do |error|
+        %li= error
+  - else
+    %div
+      = flash[:error]
