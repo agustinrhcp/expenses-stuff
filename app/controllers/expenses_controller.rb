@@ -1,21 +1,28 @@
 class ExpensesController < ApplicationController
   def index
-    @expenses = Expense.all
+    assign_user_expenses
   end
 
   def create
     expense_attrs = params[:expense].permit(:amount, :description)
+    expense_attrs[:user_id] = current_user.id
 
     @expense = Expense.create(expense_attrs)
 
     if @expense.save
       redirect_to action: :index
     else
-      flash[:error] = @expense.errors.full_messages
+      flash.now[:error] = @expense.errors.full_messages
 
-      @expenses = Expense.all
+      assign_user_expenses
 
       render action: :index
     end
+  end
+
+  private
+
+  def assign_user_expenses
+    @expenses = current_user.expenses
   end
 end

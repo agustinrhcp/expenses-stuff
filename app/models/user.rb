@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, confirmation: true
   validates :password, length: { in: 6..20}, on: :create
 
+  has_many :expenses
+
   def authenticates?(password)
     encrypted_password == BCrypt::Engine.hash_secret(password, salt)
   end

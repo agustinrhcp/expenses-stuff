@@ -9,10 +9,10 @@ class SessionsController < ApplicationController
     user = User.find_by_email(auth[:email])
 
     if user && user.authenticates?(auth[:password])
-      login(user.id)
+      login(user)
       redirect_to expenses_path
     else
-      flash[:error] = t('.invalid_credentials')
+      flash.now[:error] = t('.invalid_credentials')
       render :new
     end
   end

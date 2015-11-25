@@ -3,10 +3,10 @@ require 'spec_helper'
 require 'factories/expense'
 
 describe ExpensesController do
-  before { login_user }
+  include_context 'user logged in'
 
   describe 'index' do
-    let(:expense) { FactoryGirl.create(:expense) }
+    let(:expense) { FactoryGirl.create(:expense, user: current_user) }
 
     it 'assigns the expenses to expenses' do
       get :index
@@ -30,6 +30,14 @@ describe ExpensesController do
       }.to change { Expense.all.size }.by(1)
     end
 
+    describe 'the created expense' do
+      subject { post :create, expense: expense_attrs; Expense.last }
+
+      its(:user)        { is_expected.to eql current_user }
+      its(:amount)      { is_expected.to eql expense_attrs[:amount] }
+      its(:description) { is_expected.to eql expense_attrs[:description] }
+    end
+
     it 'redirects to index' do
       post :create, expense: expense_attrs
 
@@ -37,7 +45,7 @@ describe ExpensesController do
     end
 
     context 'when it fails' do
-      let(:expense) { FactoryGirl.create(:expense) }
+      let(:expense) { FactoryGirl.create(:expense, user: current_user) }
 
       before { expense_attrs.delete(:amount) }
 

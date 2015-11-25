@@ -5,11 +5,11 @@ class UsersController < ApplicationController
     user_attrs = params[:user].permit(:email, :password, :password_confirmation)
     user = User.create!(user_attrs)
 
-    login(user.id)
+    login(user)
 
     redirect_to expenses_path
   rescue ActiveRecord::RecordInvalid => e
-    flash[:error] = e.record.errors.full_messages
+    flash.now[:error] = e.record.errors.full_messages
 
     render :new
   end
