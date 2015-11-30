@@ -1,13 +1,15 @@
-= form_tag signup_path do
-	%div
-		= label_tag 'user[email]', 'email'
-		= text_field_tag 'user[email]', params[:email]
-	%div
-		= label_tag 'user[password]', 'password'
-		= password_field_tag 'user[password]'
-	%div
-		= label_tag 'user[password_confirmation]', 'password_confirmation'
-		= password_field_tag 'user[password_confirmation]'
+= render 'application/components/flash_box'
 
-	%div
-		= submit_tag 'Signup'
+= form_tag signup_path do
+  %div
+    = label_tag 'user[email]', 'email'
+    = text_field_tag 'user[email]', params[:email]
+  %div
+    = label_tag 'user[password]', 'password'
+    = password_field_tag 'user[password]'
+  %div
+    = label_tag 'user[password_confirmation]', 'password_confirmation'
+    = password_field_tag 'user[password_confirmation]'
+
+  %div
+    = submit_tag 'Signup'

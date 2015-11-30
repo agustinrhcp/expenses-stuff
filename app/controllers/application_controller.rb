@@ -7,13 +7,17 @@ class ApplicationController < ActionController::Base
     session[:user_id].present?
   end
 
+  def current_user
+    @user ||= User.find(session[:user_id])
+  end
+
+  private
+
   def require_login
     redirect_to login_path unless logged_in?
   end
 
-	private
-
-	def login(user_id)
-    session[:user_id] = user_id
-	end
+  def login(user)
+    session[:user_id] = user.id
+  end
 end

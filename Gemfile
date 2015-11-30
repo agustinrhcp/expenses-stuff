@@ -18,4 +18,5 @@ gem 'bcrypt', '~> 3.1.9'
 group :development, :test do
   gem 'factory_girl'
   gem 'rspec-rails', '~> 3.2.0'
+  gem 'rspec-its'
 end

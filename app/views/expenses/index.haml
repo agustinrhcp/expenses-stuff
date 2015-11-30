@@ -1,10 +1,11 @@
+= render 'application/components/flash_box'
 - @expenses.each do |expense|
-	%div
-		= expense.description
-		= expense.amount
+  %div
+    = expense.description
+    = expense.amount
 
-%div{ data: { add_expense: true } }
-	= link_to 'Add Expense', '#', remote: true, data: { toggle_add_expense: true }
+%div{ data: { add_expense: true }, class: "#{@expense ? 'is-hidden' : ''}" }
+  = link_to 'Add Expense', '#', remote: true, data: { toggle_add_expense: true }
 
-%div.is-hidden{ data: { expense_form: true } }
-	= render 'form'
+%div{ data: { expense_form: true }, class: "#{@expense ? '' : 'is-hidden'}" }
+  = render 'form', expense: @expense
