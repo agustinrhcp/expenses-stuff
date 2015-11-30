@@ -32,4 +32,13 @@ describe Expense do
       end
     end
   end
+
+  describe '.total' do
+    let!(:expense1) { FactoryGirl.create(:expense) }
+    let!(:expense2) { FactoryGirl.create(:expense) }
+
+    it 'returns the total of the expenses' do
+      expect(Expense.all.total).to be expense1.amount + expense2.amount
+    end
+  end
 end
