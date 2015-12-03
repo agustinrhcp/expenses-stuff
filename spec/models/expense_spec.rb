@@ -41,4 +41,15 @@ describe Expense do
       expect(Expense.all.total).to be expense1.amount + expense2.amount
     end
   end
+
+  describe '.by_date' do
+    subject { Expense.by_date(this_month_date) }
+
+    let(:this_month_date)      { Date.today }
+    let!(:this_month_expense)  { FactoryGirl.create(:expense) }
+    let!(:other_month_expense) { FactoryGirl.create(:expense, created_at: Date.today << 6) }
+
+    it { is_expected.to include this_month_expense }
+    it { is_expected.to_not include other_month_expense }
+  end
 end

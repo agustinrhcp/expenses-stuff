@@ -1,9 +1,15 @@
 = render 'application/components/flash_box'
+
+%div
+  %span= link_to 'previous', previous_month_path(@date)
+  = "Month: #{@date.month}"
+  %span= link_to 'next', next_month_path(@date)
+
 - @expenses.each do |expense|
   %div
     = expense.description
     = expense.amount
-%div= "Total: #{@expenses.total}" 
+%div= "Total: #{@expenses.total}"
 
 %div{ data: { add_expense: true }, class: "#{@expense ? 'is-hidden' : ''}" }
   = link_to 'Add Expense', '#', remote: true, data: { toggle_add_expense: true }
