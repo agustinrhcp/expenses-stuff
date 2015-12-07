@@ -9,7 +9,9 @@
   %div
     = expense.description
     = expense.amount
-%div= "Total: #{@expenses.total}"
+    - if expense.applies_monthly?
+      = 'Monthly'
+%div= "Total: #{@expenses.map(&:amount).reduce(:+)}"
 
 %div{ data: { add_expense: true }, class: "#{@expense ? 'is-hidden' : ''}" }
   = link_to 'Add Expense', '#', remote: true, data: { toggle_add_expense: true }

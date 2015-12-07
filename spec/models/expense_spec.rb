@@ -36,8 +36,8 @@ describe Expense do
     end
   end
 
-  describe '.by_date' do
-    subject { Expense.by_date(this_month_date) }
+  describe '.created_at' do
+    subject { Expense.created_at(this_month_date) }
 
     let(:this_month_date)      { Date.today }
     let!(:this_month_expense)  { FactoryGirl.create(:expense) }
@@ -45,5 +45,15 @@ describe Expense do
 
     it { is_expected.to include this_month_expense }
     it { is_expected.to_not include other_month_expense }
+  end
+
+  describe '.applies_monthly?' do
+    subject { Expense.applies_monthly? }
+
+    let!(:every_month_expense) { FactoryGirl.create(:expense, applies_monthly: true) }
+    let!(:regular_expense)     { FactoryGirl.create(:expense) }
+
+    it { is_expected.to include every_month_expense }
+    it { is_expected.to_not include regular_expense }
   end
 end
