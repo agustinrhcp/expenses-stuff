@@ -7,15 +7,22 @@ describe ExpensesController do
 
   describe 'index' do
     let!(:expense) { FactoryGirl.create(:expense, user: current_user) }
+    let!(:monthly_expense) do
+      FactoryGirl.create(
+        :expense, :monthly, created_at: 6.months.ago, user: current_user
+      )
+    end
 
     it 'renders the index view' do
       get :index
       expect(response).to render_template :index
     end
 
-    it 'assigns the expenses to @expenses' do
-      get :index
-      expect(assigns[:expenses]).to include expense
+    describe '@expenses' do
+      subject { get :index; assigns(:expenses) }
+
+      it { is_expected.to include expense }
+      it { is_expected.to include monthly_expense}
     end
 
     describe '@date' do
@@ -35,7 +42,7 @@ describe ExpensesController do
   end
 
   describe 'create' do
-    let(:expense_attrs) { { amount: rand(0..1_000), description: 'Something' } }
+    let(:expense_attrs) {{ amount: rand(0..1_000), description: 'Something' }}
 
     it 'creates a new expense' do
       expect {

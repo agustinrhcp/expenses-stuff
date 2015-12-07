@@ -1,11 +1,14 @@
-= form_tag expenses_path do
+= form_for @expense do |f|
   %div
-    = label_tag 'expense[description]', 'description'
-    = text_field_tag 'expense[description]', expense ? expense.description : nil
+    = f.label :description
+    = f.text_field :description
   %div
-    = label_tag 'expense[amount]', 'amount'
-    = text_field_tag 'expense[amount]', expense ? expense.amount : nil
+    = f.label :amount
+    = f.text_field :amount
+  %div
+    = f.label :applies_monthly?
+    = f.check_box :applies_monthly?
 
   %div
-    = submit_tag 'Add'
+    = f.submit
     = link_to 'cancel', '#', data: { toggle_add_expense: true }
