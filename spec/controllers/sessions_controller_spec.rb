@@ -4,7 +4,6 @@ describe SessionsController do
   describe 'GET login' do
     it 'renders the new view' do
       get :new
-
       expect(response).to render_template :new
     end
   end
@@ -16,7 +15,6 @@ describe SessionsController do
 
     it 'redirets to expenses index' do
       post :create, auth: auth
-
       expect(response).to redirect_to expenses_path
     end
 
@@ -25,19 +23,17 @@ describe SessionsController do
         post :create, auth: auth
       }.to change { session[:user_id] }.from(nil).to(user.id)
     end
-    
+
     context 'when the user or password does not match' do
       before { auth[:email] += 'nope' }
 
       it 'renders the new view' do
         post :create, auth: auth
-
         expect(response).to render_template :new
       end
 
       it 'shows an error message' do
         post :create, auth: auth
-
         expect(flash[:error]).to be
       end
     end

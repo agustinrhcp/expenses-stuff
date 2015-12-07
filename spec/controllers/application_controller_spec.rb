@@ -35,7 +35,6 @@ describe ApplicationController, :type => :controller do
 
       it 'allows navigation' do
         get :index
-
         expect(response.body).to eq 'OK'
       end
     end
@@ -43,7 +42,6 @@ describe ApplicationController, :type => :controller do
     context 'when the user is not logged in' do
       it 'redirects to new sessions path' do
         get :index
-
         expect(response).to redirect_to login_path
       end
     end

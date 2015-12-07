@@ -6,18 +6,31 @@ describe ExpensesController do
   include_context 'user logged in'
 
   describe 'index' do
-    let(:expense) { FactoryGirl.create(:expense, user: current_user) }
-
-    it 'assigns the expenses to expenses' do
-      get :index
-
-      expect(assigns[:expenses]).to include expense
-    end
+    let!(:expense) { FactoryGirl.create(:expense, user: current_user) }
 
     it 'renders the index view' do
       get :index
-
       expect(response).to render_template :index
+    end
+
+    it 'assigns the expenses to @expenses' do
+      get :index
+      expect(assigns[:expenses]).to include expense
+    end
+
+    describe '@date' do
+      let(:params) { {} }
+      subject { get :index, params; assigns(:date) }
+
+      it { is_expected.to eql Date.today }
+
+      context 'when year and month params are given' do
+        let(:next_month)  { Date.today.next_month }
+        let(:params)      {{ year: next_month.year, month: next_month.month }}
+
+        its(:year)  { is_expected.to eql next_month.year }
+        its(:month) { is_expected.to eql next_month.month }
+      end
     end
   end
 
@@ -40,30 +53,26 @@ describe ExpensesController do
 
     it 'redirects to index' do
       post :create, expense: expense_attrs
-
       expect(response).to redirect_to action: :index
     end
 
     context 'when it fails' do
-      let(:expense) { FactoryGirl.create(:expense, user: current_user) }
+      let!(:expense) { FactoryGirl.create(:expense, user: current_user) }
 
       before { expense_attrs.delete(:amount) }
 
       it 'renders the index view' do
         post :create, expense: expense_attrs
-
         expect(response).to render_template :index
       end
 
       it 'assigns expenses to expenses' do
         post :create, expense: expense_attrs
-
         expect(assigns[:expenses]).to include expense
       end
 
       it 'flashes error messages' do
         post :create, expense: expense_attrs
-
         expected = I18n.t('activerecord.errors.models.expense.attributes.amount.not_a_number')
         expect(flash[:error]).to include expected
       end
