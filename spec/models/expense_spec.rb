@@ -2,34 +2,28 @@ require 'spec_helper'
 
 describe Expense do
   describe 'validations' do
-    context 'when the amount is not a number' do
-      let(:amount) { 'two' }
+    subject { expense.valid? }
 
-      it 'fails' do
-        expect {
-          FactoryGirl.create(:expense, amount: amount)
-        }.to raise_error(ActiveRecord::RecordInvalid)
-      end
+    let(:expense) { FactoryGirl.build(:expense) }
+
+    it { is_expected.to be true }
+
+    context 'when the amount is not a number' do
+      before { expense.amount = 'two' }
+
+      it { is_expected.to be false }
     end
 
     context 'when the amount is less than zero' do
-      let(:amount) { -100 }
+      before { expense.amount = -100 }
 
-      it 'fails' do
-        expect {
-          FactoryGirl.create(:expense, amount: amount)
-        }.to raise_error(ActiveRecord::RecordInvalid)
-      end
+      it { is_expected.to be false }
     end
 
     context 'when the description is blank' do
-      let(:description) { nil }
+      before { expense.description = nil }
 
-      it 'fails' do
-        expect {
-          FactoryGirl.create(:expense, description: description)
-        }.to raise_error(ActiveRecord::RecordInvalid)
-      end
+      it { is_expected.to be false }
     end
   end
 
