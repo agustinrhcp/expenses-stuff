@@ -4,7 +4,6 @@ describe UsersController do
   describe 'GET signup' do
     it 'renders the new view' do
       get :new
-
       expect(response).to render_template :new
     end
   end
@@ -36,13 +35,11 @@ describe UsersController do
 
       it 'renders the new view' do
         post :create, user: user_attrs
-
         expect(response).to render_template :new
       end
 
       it 'shows an error message' do
         post :create, user: user_attrs
-
         expect(flash[:error]).to be
       end
     end
