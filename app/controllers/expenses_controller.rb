@@ -18,9 +18,16 @@ class ExpensesController < ApplicationController
       flash.now[:error] = @expense.errors.full_messages
 
       index
-      render action: :index
+      render :index
     end
   end
+
+  def destroy
+    Expense.find(params[:id]).destroy
+
+    redirect_to action: :index
+  end
+
 
   private
 

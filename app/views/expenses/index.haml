@@ -1,20 +1,26 @@
 = render 'application/components/flash_box'
 
+%div.is-centered
+  %span= link_to '<', previous_month_path(@date)
+  = l(@date, format: :short)
+  %span= link_to '>', next_month_path(@date)
+
+= render 'form', expense: @expense
+
 %div
-  %span= link_to 'previous', previous_month_path(@date)
-  = "Month: #{@date.month}"
-  %span= link_to 'next', next_month_path(@date)
+  %table.table
+    - @expenses.each do |expense|
+      %tr
+        %td
+        %td= expense.description
+        %td= expense.amount
+        %td
+          = link_to 'Delete', expense, method: :delete
 
-- @expenses.each do |expense|
-  %div
-    = expense.description
-    = expense.amount
-    - if expense.applies_monthly?
-      = 'Monthly'
-%div= "Total: #{@expenses.map(&:amount).reduce(:+)}"
-
-%div{ data: { add_expense: true }, class: "#{@expense ? 'is-hidden' : ''}" }
-  = link_to 'Add Expense', '#', remote: true, data: { toggle_add_expense: true }
-
-%div{ data: { expense_form: true }, class: "#{@expense ? '' : 'is-hidden'}" }
-  = render 'form', expense: @expense
+    %tr
+      %td
+      %td
+        %strong= 'Total'
+      %td
+        %strong= @expenses.total
+      %td

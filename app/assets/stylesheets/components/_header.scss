@@ -1,0 +1,14 @@
+.header {
+  padding: 0 20px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+  .header__left {
+  }
+
+  .header__right {
+    text-align: right;
+    flex-grow: 1;
+  }

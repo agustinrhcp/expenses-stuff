@@ -1,4 +1,8 @@
 en:
+  date:
+    formats:
+      short: "%B %Y"
+
   errors:
     format: '%{message}'
     messages:

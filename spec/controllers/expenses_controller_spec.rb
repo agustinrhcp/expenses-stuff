@@ -85,4 +85,19 @@ describe ExpensesController do
       end
     end
   end
+
+  describe 'destroy' do
+    let!(:expense) { FactoryGirl.create(:expense) }
+
+    it 'destroys the expense' do
+      expect {
+        delete :destroy, id: expense.id
+      }.to change { Expense.count }.by(-1)
+    end
+
+    it 'redirects to index' do
+      delete :destroy, id: expense.id
+      expect(response).to redirect_to action: :index
+    end
+  end
 end

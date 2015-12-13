@@ -1,28 +1,19 @@
 var ExpensesStuff = ExpensesStuff || {};
 
 ExpensesStuff.expensesHelper = function(){
-  var bindToggleForm = function() {
-    $('[data-toggle-add-expense]').on('click', function() {
-      $('[data-add-expense]').toggleClass('is-hidden');
+  var bindToggleOptions = function(e) {
+    $('[data-toggle-expenses-options]').on('click', function(e) {
+      e.preventDefault();
 
-      var $form = $('[data-expense-form]');
-      $form.toggleClass('is-hidden');
-      clearInputs($form);
+      $('[data-expenses-options]').toggleClass('is-hidden');
     });
   };
 
-  var clearInputs = function($form) {
-    $form.find(':input').not(':button, :submit, :reset, :hidden')
-      .val('')
-      .removeAttr('checked')
-      .removeAttr('selected');
-  }
-
   return {
     initialize: function() {
-      bindToggleForm();
+      bindToggleOptions();
     }
-  }
+  };
 }();
 
 $(document).on('ready, page:load, page:change', function(){
