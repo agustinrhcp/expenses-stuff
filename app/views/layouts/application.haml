@@ -1,0 +1,14 @@
+!!! 5
+%head
+  %title
+    ExpensesStuff
+
+  = stylesheet_link_tag 'application', media: 'all', data_turbolinks_track: true
+  = javascript_include_tag 'application', data_turbolinks_track: true
+  = csrf_meta_tags
+
+%body
+
+  = render 'header'
+
+  = yield

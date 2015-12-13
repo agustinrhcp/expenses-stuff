@@ -1,11 +1,13 @@
-= form_tag expenses_path do
-  %div
-    = label_tag 'expense[description]', 'description'
-    = text_field_tag 'expense[description]', expense ? expense.description : nil
-  %div
-    = label_tag 'expense[amount]', 'amount'
-    = text_field_tag 'expense[amount]', expense ? expense.amount : nil
+.is-centered
+  = form_for @expense do |f|
+    %div.form__group--inline
+      .group__field= f.text_field :description, placeholder: 'Description'
+      .group__field= f.text_field :amount, placeholder: 'Amount'
+      %div
+        = f.submit
 
-  %div
-    = submit_tag 'Add'
-    = link_to 'cancel', '#', data: { toggle_add_expense: true }
+    %div
+      = link_to 'Options', '#options', data: { toggle_expenses_options: true }
+    %div.is-hidden{ data: { expenses_options: true } }
+      = f.label :applies_monthly?
+      = f.check_box :applies_monthly?

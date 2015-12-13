@@ -1,0 +1,7 @@
+.header
+  .header__left
+    %h2= 'Expenses&Stuff'
+
+  .header__right
+    - if logged_in?
+      = link_to 'Log out', logout_path, class: 'is-right'
