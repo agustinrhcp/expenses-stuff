@@ -1,15 +1,23 @@
-= render 'application/components/flash_box'
+.row.section
+  .col.s4.offset-s4
+    .card
+      .card-content
+        = form_tag login_path do
+          .row
+            .input-field.col.s10.offset-s1
+              = text_field_tag 'user[email]', params[:email]
+              = label_tag 'user[email]', 'Email'
+          .row
+            .input-field.col.s10.offset-s1
+              = label_tag 'user[password]', 'Password'
+              = password_field_tag 'user[password]'
+          .row
+            .input-field.col.s10.offset-s1
+              = label_tag 'user[password_confirmation]', 'Password Confirmation'
+              = password_field_tag 'user[password_confirmation]'
+          .row
+            .col.s10.offset-s1.right-align
+              = submit_tag 'Signup', class: 'btn btn-large waves-effect waves-light'
 
-= form_tag signup_path do
-  %div
-    = label_tag 'user[email]', 'email'
-    = text_field_tag 'user[email]', params[:email]
-  %div
-    = label_tag 'user[password]', 'password'
-    = password_field_tag 'user[password]'
-  %div
-    = label_tag 'user[password_confirmation]', 'password_confirmation'
-    = password_field_tag 'user[password_confirmation]'
-
-  %div
-    = submit_tag 'Signup'
+          .row.center-align
+            = link_to 'Already have an account? Log In', login_path
