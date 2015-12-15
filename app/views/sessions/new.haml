@@ -1,12 +1,22 @@
-= render 'application/components/flash_box'
+.row.section
+  .col.s4.offset-s4
+    .card
+      .card-content
+        = form_tag login_path do
+          .row
+            .input-field.col.s10.offset-s1
+              = text_field_tag 'auth[email]', params[:email]
+              = label_tag 'auth[email]', 'Email'
+          .row
+            .input-field.col.s10.offset-s1
+              = password_field_tag 'auth[password]'
+              = label_tag 'auth[password]', 'Password'
 
-= form_tag login_path do
-  %div
-    = label_tag 'auth[email]', 'email'
-    = text_field_tag 'auth[email]', params[:email]
-  %div
-    = label_tag 'auth[password]', 'password'
-    = password_field_tag 'auth[password]'
+          .row
+            .col.s5.offset-s1
+              = link_to 'Forgot Password?', '#'
+            .col.s5.right-align
+              = submit_tag 'Login', class: 'btn btn-large waves-effect waves-light'
 
-  %div
-    = submit_tag 'Login'
+          .row.center-align
+            = link_to 'Don\'t have an account? Sign up', signup_path
