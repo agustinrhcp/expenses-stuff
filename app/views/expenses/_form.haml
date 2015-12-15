@@ -1,13 +1,11 @@
-.is-centered
-  = form_for @expense do |f|
-    %div.form__group--inline
-      .group__field= f.text_field :description, placeholder: 'Description'
-      .group__field= f.text_field :amount, placeholder: 'Amount'
-      %div
-        = f.submit
+= form_for @expense do |f|
+  .row.valign-wrapper
+    .input-field.col.s3.offset-s3= f.text_field :description, placeholder: 'Description'
+    .input-field.col.s2= f.text_field :amount, placeholder: 'Amount'
+    .valign.col.s1= f.submit 'Add', class: 'btn waves-effect waves-light'
 
-    %div
-      = link_to 'Options', '#options', data: { toggle_expenses_options: true }
-    %div.is-hidden{ data: { expenses_options: true } }
-      = f.label :applies_monthly?
-      = f.check_box :applies_monthly?
+  -# %div
+  -#   = link_to 'Options', '#options', data: { toggle_expenses_options: true }
+  -# %div.is-hidden{ data: { expenses_options: true } }
+  -#   = f.label :applies_monthly?
+  -#   = f.check_box :applies_monthly?
