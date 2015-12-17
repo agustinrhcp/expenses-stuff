@@ -13,7 +13,7 @@ describe SessionsController do
     let(:user) { FactoryGirl.create(:user, password: password) }
     let(:auth) { { email: user.email, password: password } }
 
-    it 'redirets to expenses index' do
+    it 'redirects to expenses index' do
       post :create, auth: auth
       expect(response).to redirect_to expenses_path
     end
@@ -36,6 +36,15 @@ describe SessionsController do
         post :create, auth: auth
         expect(flash[:error]).to be
       end
+    end
+  end
+
+  describe 'DELETE logout' do
+    include_context 'user logged in'
+    it 'logout the user' do
+      expect {
+        post :destroy
+      }.to change { session[:user_id] }.from(current_user.id).to(nil)
     end
   end
 end
