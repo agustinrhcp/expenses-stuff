@@ -2,16 +2,5 @@
 }
 
   .header__title {
-    @extend .col;
-    @extend .s10;
-    @extend .m11;
-    @extend .l11;
     font-size: 1.4em;
-  }
-
-  .header__right {
-    @extend .col;
-    @extend .s12;
-    @extend .m1;
-    @extend .l1;
   }

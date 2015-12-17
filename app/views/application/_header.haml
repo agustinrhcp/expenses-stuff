@@ -2,7 +2,7 @@
   %nav.top-nav
     .nav-wrapper
       .row
-        .header__title= 'Expenses&Stuff'
-        .header__right 
+        .header__title.col.s10.m11.l11= 'Expenses&Stuff'
+        .header__right.col.s12.m1.l1
           - if logged_in?
-            = link_to 'Log out', logout_path, :method => :delete, class: 'float-right'
+            = link_to 'Log out', logout_path, method: :delete, class: 'float-right'
