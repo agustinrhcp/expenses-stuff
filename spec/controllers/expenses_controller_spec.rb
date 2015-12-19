@@ -42,7 +42,7 @@ describe ExpensesController do
   end
 
   describe 'create' do
-    let(:expense_attrs) {{ amount: rand(0..1_000), description: 'Something' }}
+    let(:expense_attrs) {{ amount: rand(0..1_000), description: 'Something', tag: 'Tag' }}
 
     it 'creates a new expense' do
       expect {
@@ -56,6 +56,7 @@ describe ExpensesController do
       its(:user)        { is_expected.to eql current_user }
       its(:amount)      { is_expected.to eql expense_attrs[:amount] }
       its(:description) { is_expected.to eql expense_attrs[:description] }
+      its(:tag)         { is_expected.to eql expense_attrs[:tag] }
     end
 
     it 'redirects to index' do
