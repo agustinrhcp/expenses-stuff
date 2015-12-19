@@ -1,7 +1,8 @@
 = form_for @expense do |f|
   .row.valign-wrapper
-    .input-field.col.s3.offset-s3= f.text_field :description, placeholder: 'Description'
+    .input-field.col.s2.offset-s3= f.text_field :description, placeholder: 'Description'
     .input-field.col.s2= f.text_field :amount, placeholder: 'Amount'
+    .input-field.col.s2= f.text_field :tag, placeholder: 'Tag'
     .valign.col.s1= f.button 'Add', class: 'btn waves-effect waves-light'
 
   -# %div
