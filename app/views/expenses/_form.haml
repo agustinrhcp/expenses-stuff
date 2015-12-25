@@ -3,4 +3,5 @@
     .input-field.col.s2.offset-s3= f.text_field :description, placeholder: 'Description'
     .input-field.col.s2= f.text_field :amount, placeholder: 'Amount'
     .input-field.col.s2= f.text_field :tag, placeholder: 'Tag'
+    .hide= f.text_field :date, value: @date
     .valign.col.s1= f.button 'Add', class: 'btn waves-effect waves-light'
