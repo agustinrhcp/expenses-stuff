@@ -2,19 +2,20 @@
   .col.s4.offset-s4
     .card
       .card-content
-        = form_tag login_path do
+        = form_for @user, url: signup_path do |f|
           .row
             .input-field.col.s10.offset-s1
-              = text_field_tag 'user[email]', params[:email]
-              = label_tag 'user[email]', 'Email'
+              = f.text_field :email
+              = f.label :email
           .row
             .input-field.col.s10.offset-s1
-              = label_tag 'user[password]', 'Password'
-              = password_field_tag 'user[password]'
+              = f.password_field :password
+              = f.label :password
+
           .row
             .input-field.col.s10.offset-s1
-              = label_tag 'user[password_confirmation]', 'Password Confirmation'
-              = password_field_tag 'user[password_confirmation]'
+              = f.password_field :password_confirmation
+              = f.label :password_confirmation
           .row
             .col.s10.offset-s1.right-align
               = button_tag 'Signup', class: 'btn btn-large waves-effect waves-light'

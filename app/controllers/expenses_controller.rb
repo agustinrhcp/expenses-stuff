@@ -1,9 +1,8 @@
 class ExpensesController < ApplicationController
   def index
     @date = sanitized_date || Date.today
-
-    @expenses = current_user.expenses.by_date(@date)
-    @expense ||= Expense.new
+    @expense = Expense.new
+    set_expenses
   end
 
   def create
@@ -11,13 +10,13 @@ class ExpensesController < ApplicationController
     expense_attrs[:user_id] = current_user.id
 
     @expense = Expense.create(expense_attrs)
+    @date = @expense.date || Date.today
 
     if @expense.save
-      redirect_to action: :index
+      redirect_to action: :index, year: @date.year, month: @date.month
     else
       flash.now[:error] = @expense.errors.full_messages
-
-      index
+      set_expenses
       render :index
     end
   end
@@ -40,6 +39,12 @@ class ExpensesController < ApplicationController
   end
 
   def expenses_params
-    params.require(:expense).permit(:amount, :description, :applies_monthly, :tag)
+    params.require(:expense).permit(
+      :amount, :description, :date, :tag
+    )
+  end
+
+  def set_expenses
+    @expenses = current_user.expenses.by_date(@date)
   end
 end

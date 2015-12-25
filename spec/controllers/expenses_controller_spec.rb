@@ -42,7 +42,13 @@ describe ExpensesController do
   end
 
   describe 'create' do
-    let(:expense_attrs) {{ amount: rand(0..1_000), description: 'Something', tag: 'Tag' }}
+    let(:date) { Date.today.next_month }
+    let(:expense_attrs) do
+      {
+        amount: rand(0..1_000), description: 'Something',
+        tag: 'stuff', date: date
+      }
+    end
 
     it 'creates a new expense' do
       expect {
@@ -57,15 +63,16 @@ describe ExpensesController do
       its(:amount)      { is_expected.to eql expense_attrs[:amount] }
       its(:description) { is_expected.to eql expense_attrs[:description] }
       its(:tag)         { is_expected.to eql expense_attrs[:tag] }
+      its(:date)        { is_expected.to eql date }
     end
 
     it 'redirects to index' do
       post :create, expense: expense_attrs
-      expect(response).to redirect_to action: :index
+      expect(response).to redirect_to action: :index, year: date.year, month: date.month
     end
 
     context 'when it fails' do
-      let!(:expense) { FactoryGirl.create(:expense, user: current_user) }
+      let!(:expense) { FactoryGirl.create(:expense, user: current_user, date: date) }
 
       before { expense_attrs.delete(:amount) }
 

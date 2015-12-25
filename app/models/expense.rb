@@ -5,8 +5,8 @@ class Expense < ActiveRecord::Base
   validates :description, presence: true
 
   scope :applies_monthly?, -> { where(applies_monthly: true) }
-  scope :created_at, ->(date) do
-    where(created_at: date.beginning_of_month..date.end_of_month)
+  scope :from_month, ->(date) do
+    where(date: date.beginning_of_month..date.end_of_month)
   end
 
   def self.total
@@ -18,7 +18,7 @@ class Expense < ActiveRecord::Base
     Expense.where(
       "#{applies_monthly?.to_sql.split('WHERE').last}" +
       ' OR ' +
-      "#{created_at(date).to_sql.split('WHERE').last}"
+      "#{from_month(date).to_sql.split('WHERE').last}"
     )
   end
 end
