@@ -1,16 +1,20 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, only: [:new, :create]
 
+  def new
+    @user = User.new
+  end
+
   def create
-    user_attrs = params[:user].permit(:email, :password, :password_confirmation)
-    user = User.create!(user_attrs)
+    user_attrs = params.require(:user).permit(:email, :password, :password_confirmation)
+    @user = User.create(user_attrs)
 
-    login(user)
-
-    redirect_to expenses_path
-  rescue ActiveRecord::RecordInvalid => e
-    flash.now[:error] = e.record.errors.full_messages
-
-    render :new
+    if @user.save
+      login(@user)
+      redirect_to expenses_path
+    else
+      flash.now[:error] = @user.errors
+      render :new
+    end
   end
 end

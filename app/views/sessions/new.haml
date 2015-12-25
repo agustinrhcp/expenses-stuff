@@ -2,15 +2,15 @@
   .col.s4.offset-s4
     .card
       .card-content
-        = form_tag login_path do
+        = form_for @user, url: login_path do |f|
           .row
             .input-field.col.s10.offset-s1
-              = text_field_tag 'auth[email]', params[:email]
-              = label_tag 'auth[email]', 'Email'
+              = f.text_field :email
+              = f.label :email
           .row
             .input-field.col.s10.offset-s1
-              = password_field_tag 'auth[password]'
-              = label_tag 'auth[password]', 'Password'
+              = f.password_field :password
+              = f.label :password
 
           .row
             .col.s5.offset-s1
