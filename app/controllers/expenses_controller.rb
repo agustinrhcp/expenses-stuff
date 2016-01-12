@@ -6,9 +6,6 @@ class ExpensesController < ApplicationController
   end
 
   def create
-    expense_attrs = expenses_params
-    expense_attrs[:user_id] = current_user.id
-
     @expense = Expense.create(expense_attrs)
     @date = @expense.date || Date.today
 
@@ -23,10 +20,8 @@ class ExpensesController < ApplicationController
 
   def destroy
     Expense.find(params[:id]).destroy
-
     redirect_to action: :index
   end
-
 
   private
 
@@ -40,8 +35,15 @@ class ExpensesController < ApplicationController
 
   def expenses_params
     params.require(:expense).permit(
-      :amount, :description, :date, :tag
+      :amount, :description, :date, :tag, :installments, :applies_monthly
     )
+  end
+
+  def expense_attrs
+    expenses_params.tap do |attr|
+      attr[:user_id] = current_user.id
+      attr[:applies_monthly] = attr[:applies_monthly] != '0'
+    end
   end
 
   def set_expenses

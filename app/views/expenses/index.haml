@@ -15,7 +15,7 @@
     %table.bordered.col.s6.offset-s3
       - @expenses.each do |expense|
         %tr
-          %td.center-align= expense.description
+          %td.center-align= expense.description + installments_desc(expense, @date)
           %td.center-align= expense.amount
           %td.center-align= expense.tag
           %td.right-align

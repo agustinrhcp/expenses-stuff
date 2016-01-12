@@ -5,7 +5,7 @@ ExpensesStuff.expensesHelper = function(){
     $('[data-toggle-expenses-options]').on('click', function(e) {
       e.preventDefault();
 
-      $('[data-expenses-options]').toggleClass('is-hidden');
+      $('[data-expenses-options]').toggleClass('hide');
     });
   };
 
