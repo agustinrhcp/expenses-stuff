@@ -17,7 +17,9 @@
         %tr
           %td.center-align= expense.description
           %td.center-align= expense.amount
-          %td.center-align= expense.tag
+          %td.center-align
+            - expense.tag.split(',').each do |tag|
+              %div.chip.teal.white-text= tag
           %td.right-align
             = link_to expense, method: :delete do
               %i.mdi-content-clear
