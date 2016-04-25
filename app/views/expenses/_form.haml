@@ -2,6 +2,13 @@
   .row.valign-wrapper
     .input-field.col.s2.offset-s3= f.text_field :description, placeholder: 'Description'
     .input-field.col.s2= f.text_field :amount, placeholder: 'Amount'
-    .input-field.col.s2= f.text_field :tag, placeholder: 'Tag'
+    .col.s1= link_to 'Options', '', data: { toggle_expenses_options: true }
     .hide= f.text_field :date, value: @date
     .valign.col.s1= f.button 'Add', class: 'btn waves-effect waves-light'
+
+  .row.hide{ data: { expenses_options: true }}
+    .input-field.col.s2.offset-s3= f.text_field :tag, placeholder: 'Tag'
+    .input-field.col.s2= f.number_field :installments, placeholder: 'Installments'
+    %p.valign.col.s2
+      = f.check_box :applies_monthly
+      = f.label :applies_monthly
